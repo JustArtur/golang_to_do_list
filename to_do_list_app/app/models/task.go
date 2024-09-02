@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"time"
 	"to_do_list_app/app/types"
 	"to_do_list_app/db"
 )
@@ -78,18 +79,20 @@ func GetAllTasks() ([]types.Task, error) {
 }
 
 func UpdateTask(task *types.TaskPayload) (*types.Task, error) {
+
 	query := `
 		UPDATE tasks
 		SET title = $2,
 			description = $3,
-			due_date = $4
+			due_date = $4, 
+			updated_at = $5
 		WHERE id = $1
 		RETURNING id, title, description, due_date, created_at, updated_at;
     `
 
-	log.Printf("pq: %s, %d, %s, %s, %s", query, task.ID, task.Title, task.Description, task.DueDate)
+	log.Printf("pq: %s, %d, %s, %s, %s", query, task.ID, task.Title, task.Description, task.DueDate, time.Now())
 
-	rows, err := db.Db.Query(query, task.ID, task.Title, task.Description, task.DueDate)
+	rows, err := db.Db.Query(query, task.ID, task.Title, task.Description, task.DueDate, time.Now())
 	if err != nil {
 		log.Println("Failed to update task")
 		return nil, err
