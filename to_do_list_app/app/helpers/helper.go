@@ -13,9 +13,13 @@ func SendResponse(w http.ResponseWriter, status int, payload any) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(status)
 
-	json.NewEncoder(w).Encode(payload)
-}
+	var response any
 
-func SendErrorResponse(w http.ResponseWriter, status int, error error) {
-	SendResponse(w, status, map[string]string{"error": error.Error()})
+	if msg, ok := payload.(string); ok {
+		response = map[string]string{"message": msg}
+	} else {
+		response = payload
+	}
+
+	json.NewEncoder(w).Encode(response)
 }
