@@ -86,12 +86,14 @@ func Update(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Printf("failed to parse json: %v", err)
 		helpers.SendErrorResponse(w, http.StatusBadRequest, err)
+		return
 	}
 
 	taskRecord, err := models.UpdateTask(&task)
 	if err != nil {
 		log.Println(err)
-		helpers.SendErrorResponse(w, http.StatusInternalServerError, err)
+		helpers.SendErrorResponse(w, http.StatusNotFound, err)
+		return
 	}
 
 	helpers.SendResponse(w, http.StatusOK, taskRecord)

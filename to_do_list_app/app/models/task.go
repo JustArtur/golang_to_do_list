@@ -90,7 +90,13 @@ func UpdateTask(task *types.TaskPayload) (*types.Task, error) {
 		RETURNING id, title, description, due_date, created_at, updated_at;
     `
 
-	log.Printf("pq: %s, %d, %s, %s, %s", query, task.ID, task.Title, task.Description, task.DueDate, time.Now())
+	log.Print("pq:", query, task.ID, task.Title, task.Description, task.DueDate, time.Now())
+
+	_, err := GetTaskByID(task.ID)
+	if err != nil {
+		log.Println("record not exist")
+		return nil, err
+	}
 
 	rows, err := db.Db.Query(query, task.ID, task.Title, task.Description, task.DueDate, time.Now())
 	if err != nil {
@@ -110,9 +116,15 @@ func UpdateTask(task *types.TaskPayload) (*types.Task, error) {
 }
 
 func DeleteTusk(ID int) error {
+	_, err := GetTaskByID(ID)
+	if err != nil {
+		log.Println("record not exist")
+		return err
+	}
+
 	query := "DELETE FROM tasks WHERE \"id\" = $1"
 	log.Print("pq: ", query, ID)
-	_, err := db.Db.Exec(query, ID)
+	_, err = db.Db.Exec(query, ID)
 
 	if err != nil {
 		return err
