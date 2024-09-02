@@ -1,0 +1,6 @@
+.idea
+/tmp
+/task_tracker_app/tmp
+/task_tracker_app/.env.docker
+/task_tracker_app/.env.dev
+
