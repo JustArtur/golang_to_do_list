@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+// LoggingMiddleware is a middleware function that logs the start time, HTTP method,
 func LoggingMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		start := time.Now()

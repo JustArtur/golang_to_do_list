@@ -9,6 +9,7 @@ import (
 	"to_do_list_app/db"
 )
 
+// GetTaskByID retrieves a task by its ID from the database.
 func GetTaskByID(ID int) (*types.Task, error) {
 	taskRecord := new(types.Task)
 
@@ -35,6 +36,7 @@ func GetTaskByID(ID int) (*types.Task, error) {
 	return taskRecord, nil
 }
 
+// CreateTask inserts a new task into the database and returns the created task.
 func CreateTask(task *types.TaskPayload) (*types.Task, error) {
 	query := "INSERT INTO tasks (title, description, due_date) VALUES ($1, $2, $3) RETURNING id, title, description, due_date, created_at, updated_at"
 	log.Print("pq: ", query, task.Title, task.Description, task.DueDate)
@@ -54,6 +56,7 @@ func CreateTask(task *types.TaskPayload) (*types.Task, error) {
 	return taskRecord, nil
 }
 
+// GetAllTasks retrieves all tasks from the database.
 func GetAllTasks() ([]types.Task, error) {
 	var tasks []types.Task
 
@@ -78,6 +81,7 @@ func GetAllTasks() ([]types.Task, error) {
 	return tasks, nil
 }
 
+// UpdateTask updates an existing task and returns the updated task.
 func UpdateTask(task *types.TaskPayload) (*types.Task, error) {
 
 	query := `
@@ -115,6 +119,7 @@ func UpdateTask(task *types.TaskPayload) (*types.Task, error) {
 	return taskRecord, nil
 }
 
+// DeleteTusk DeleteTask deletes a task by its ID.
 func DeleteTusk(ID int) error {
 	_, err := GetTaskByID(ID)
 	if err != nil {

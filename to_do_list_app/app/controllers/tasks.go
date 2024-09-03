@@ -13,6 +13,7 @@ import (
 
 var task types.TaskPayload
 
+// Create - handles the POST request to create a new task.
 func Create(w http.ResponseWriter, r *http.Request) {
 	err := helpers.ParseRequest(r, &task)
 	if err != nil {
@@ -31,6 +32,7 @@ func Create(w http.ResponseWriter, r *http.Request) {
 	helpers.SendResponse(w, http.StatusCreated, noteRecord)
 }
 
+// Index - handles the GET request to retrieve a list of all tasks.
 func Index(w http.ResponseWriter, r *http.Request) {
 	notes, err := models.GetAllTasks()
 	if err != nil {
@@ -42,6 +44,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	helpers.SendResponse(w, http.StatusOK, notes)
 }
 
+// Show -handles the GET request to retrieve a task by its ID.
 func Show(w http.ResponseWriter, r *http.Request) {
 	str, ok := mux.Vars(r)["taskID"]
 	if !ok {
@@ -67,6 +70,7 @@ func Show(w http.ResponseWriter, r *http.Request) {
 	helpers.SendResponse(w, http.StatusOK, task)
 }
 
+// Update - handles the PUT request to update an existing task by its ID.
 func Update(w http.ResponseWriter, r *http.Request) {
 	str, ok := mux.Vars(r)["taskID"]
 	if !ok {
@@ -99,6 +103,7 @@ func Update(w http.ResponseWriter, r *http.Request) {
 	helpers.SendResponse(w, http.StatusOK, taskRecord)
 }
 
+// Delete - handles the DELETE request to remove a task by its ID.
 func Delete(w http.ResponseWriter, r *http.Request) {
 	str, ok := mux.Vars(r)["taskID"]
 	if !ok {

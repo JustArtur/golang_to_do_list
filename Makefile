@@ -16,5 +16,5 @@ migrate_down:
 migrate_version:
 	migrate -path $(MIGRATIONS_PATH) -database "$(DB_URL)" version
 
-docker_migrate_up:
-	docker compose -f docker-compose.yml --profile tools run --rm migrate up
+lint:
+	gofmt -l . && golint ./...

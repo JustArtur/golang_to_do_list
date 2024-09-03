@@ -32,3 +32,7 @@ go run main.go
 make migrate_up
 ```
 
+
+
+P.S. Данный проект основан на моей предыдущем проекте: https://github.com/JustArtur/golang_task_tracker.
+Убрано лишнее и сделано все под Ваше ТЗ.

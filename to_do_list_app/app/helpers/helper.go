@@ -5,10 +5,12 @@ import (
 	"net/http"
 )
 
+// ParseRequest decodes the JSON body of the HTTP request into provided payload.
 func ParseRequest(r *http.Request, payload any) error {
 	return json.NewDecoder(r.Body).Decode(payload)
 }
 
+// SendResponse sends a JSON response with the given status code and payload.
 func SendResponse(w http.ResponseWriter, status int, payload any) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(status)

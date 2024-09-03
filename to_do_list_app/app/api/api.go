@@ -8,6 +8,7 @@ import (
 	"to_do_list_app/app/middleware"
 )
 
+// RunServer Startup server
 func RunServer() {
 	server := http.Server{
 		Handler: newRoute(),

@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+// TaskPayload represents the payload used for creating or updating task.
 type TaskPayload struct {
 	ID          int       `json:"id"`
 	Title       string    `json:"title"`
@@ -12,6 +13,7 @@ type TaskPayload struct {
 	DueDate     null.Time `json:"due_date"`
 }
 
+// Task represents the task model retrieved from the database.
 type Task struct {
 	ID          int       `json:"id"`
 	Title       string    `json:"title"`

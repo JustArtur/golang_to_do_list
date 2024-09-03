@@ -3,13 +3,16 @@ package db
 import (
 	"database/sql"
 	"fmt"
+	// Driver for PostgreSQL database
 	_ "github.com/lib/pq"
 	"log"
 	"to_do_list_app/config"
 )
 
+// Db is global variable that holds the database connection.
 var Db *sql.DB
 
+// ConnectToDB establishes a connection to the PostgreSQL database
 func ConnectToDB() {
 	connStr := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
 		config.Envs.DbHost, config.Envs.DbPort, config.Envs.DbUser, config.Envs.DbPass, config.Envs.DbName, config.Envs.DbSSLMode)

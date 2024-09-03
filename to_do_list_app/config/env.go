@@ -7,6 +7,7 @@ import (
 	"strconv"
 )
 
+// Config holds the application envs parameters.
 type Config struct {
 	DbName    string
 	DbHost    string
@@ -16,8 +17,10 @@ type Config struct {
 	DbSSLMode string
 }
 
+// Envs is global variable that holds the environment.
 var Envs Config
 
+// InitEnvs initializes the environment variables.
 func InitEnvs() {
 	env := os.Getenv("ENV")
 	if env == "" {
